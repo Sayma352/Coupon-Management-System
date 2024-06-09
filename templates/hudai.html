@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        font-family: "Courier New", Courier, monospace;
+        box-sizing: border-box;
+      }
+      b {
+        color: white;
+      }
+      .content {
+        z-index: 100;
+        border-radius: 5px;
+        margin-top: -10px;
+        background: #1f1c45;
+        position: fixed;
+        display: flex;
+        width: 99.1%;
+        padding: 10px;
+        top: 0;
+        border-bottom: 2px solid #db341e;
+        justify-content: center;
+        align-items: center;
+      }
+      .content ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content li {
+        color: white;
+        margin-right: 20px;
+      }
+      .content li a {
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 18px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="content">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/menu">Menu</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/cart">Orders</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </div>
+    {%block body%} {%endblock body%}
+  </body>
+</html>

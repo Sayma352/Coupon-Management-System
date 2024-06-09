@@ -1,0 +1,330 @@
+{%extends 'hudai.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        color: white;
+      }
+      body {
+        background: #1f1c45;
+      }
+      .con {
+        min-height: 100vh;
+        padding: 20px;
+        background: #1f1c45;
+        width: 100%;
+      }
+      .notun {
+        background: rgba(94, 93, 93, 0.535);
+        position: fixed;
+        width: 100%;
+        height: 120vh;
+        top: -5%;
+        left: 0%;
+      }
+      .form {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: whitesmoke;
+        border-top: 30px solid rgb(13, 78, 62);
+        border-radius: 10px;
+        padding: 20px;
+        z-index: 101;
+        top: 20%;
+        left: 35%;
+        width: 500px;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      .ji {
+        text-transform: uppercase;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin-top: 100px;
+        text-align: center;
+        border-bottom: 1px solid #db341e60;
+      }
+      .button {
+        margin-top: -20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-bottom: 1px solid #db341e60;
+      }
+      .button > * {
+        width: 33.33%;
+        cursor: pointer;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        background: none;
+        color: white;
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .wrapper > * {
+        width: 500px;
+        margin-top: 30px;
+        margin-right: 40px;
+      }
+      .wrapper button {
+        background: none;
+        outline: none;
+        cursor: pointer;
+        border: none;
+      }
+      .card_image {
+        cursor: pointer;
+        max-height: 250px;
+        position: relative;
+      }
+
+      .card_image img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      @media (min-width: 40rem) {
+        .cards_item {
+          width: 50%;
+        }
+      }
+
+      @media (min-width: 56rem) {
+        .cards_item {
+          width: 32%;
+        }
+        .cards_item.second {
+          width: 36%;
+        }
+      }
+
+      .card {
+        background-color: teal;
+        border-radius: 0.25rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+          rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        display: flex;
+        width: 500px;
+        flex-direction: column;
+        overflow: hidden;
+        padding: 20px 1rem 10px;
+        border-radius: 16px;
+        height: 500px;
+      }
+      .card:hover {
+        background-color: #18172d;
+        box-shadow: rgba(32, 32, 39, 0.649) 0px 7px 29px 0px;
+      }
+      .card_content {
+        padding: 0.1rem 0;
+      }
+
+      .price {
+        position: absolute;
+        bottom: 10px;
+        right: -3px;
+        border-top-left-radius: 500rem;
+        border-bottom-left-radius: 500rem;
+        padding-right: 25px;
+        padding-left: 35px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        font-weight: 700;
+        font-size: 22px;
+        color: #fff;
+        background: #db341e;
+      }
+
+      .card_title {
+        margin-top: 0;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 700;
+      }
+      .feast {
+        height: 400px;
+        background: rgb(209, 107, 107);
+        color: white;
+        border: 2px dashed white;
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        width: 400px;
+        margin-right: 20px;
+      }
+      .feast h3 {
+        text-align: center;
+      }
+      .card_text {
+        margin-top: 16px;
+        font-size: 17px;
+      }
+      form .fuit {
+        background: #db341e;
+        font-size: 18px;
+        border: none;
+        margin-top: 20px;
+        margin-left: 23%;
+        cursor: pointer;
+        padding: 10px;
+        color: white;
+        font-weight: 600;
+        width: 150px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'menu' in msg.tags%}
+    <div class="notun"></div>
+    <div class="form">
+      <form method="POST">
+        <img src="{{ui.image.url}}" alt="" />
+        <h3>{{ui.name}}</h3>
+        <h4>Select AddOns</h4>
+        {%for o in add%}
+        <div class="wrap">
+          <button type="button" id="sub" class="sub">-</button>
+          <input type="text" class="count" id="1" value="0" min="1" max="10" />
+          <button type="button" id="add" class="add">+</button>
+        </div>
+        <b>{{ui.price}} BDT</b>
+        {%endfor%}
+      </form>
+    </div>
+
+    {%endif%} {%endfor%}
+    <div class="con">
+      <h2 class="ji">Choose Shift</h2>
+      <form method="POST" class="button">
+        {%csrf_token%} {%if flag is 0%}
+        <button type="submit" name="breakfast" style="background: #db341e">
+          Breakfast
+        </button>
+        <button type="submit" name="lunch">Lunch</button>
+        <button type="submit" name="dinner">Dinner</button>
+        {%endif%} {%if flag is 1%}
+        <button type="submit" name="breakfast">Breakfast</button>
+        <button type="submit" name="lunch" style="background: #db341e">
+          Lunch
+        </button>
+        <button type="submit" name="dinner">Dinner</button>
+        {%endif%} {%if flag is 2%}
+        <button type="submit" name="breakfast">Breakfast</button>
+        <button type="submit" name="lunch">Lunch</button>
+        <button type="submit" name="dinner" style="background: #db341e">
+          Dinner
+        </button>
+        {%endif%}
+      </form>
+      {%if flag is 0%}
+
+      <div class="wrapper">
+        {%for o in menu%}
+        <form method="POST">
+          {%csrf_token%}
+          <button type="submit" name="menu" value="{{o.menuId}}">
+            <div class="card">
+              <h2 class="card_title">{{o.name}}</h2>
+              <div class="card_image">
+                <img src="{{o.image.url}}" />
+                <div class="price">{{o.price}} BDT</div>
+              </div>
+              <div class="card_content">
+                <div class="card_text">
+                  <p>{{o.desc}}</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </form>
+        {%endfor%}
+      </div>
+      {%endif%} {%if flag is 1%}
+      <div class="wrapper">
+        {%for o in menu%}
+        <form method="POST">
+          {%csrf_token%}
+          <button type="submit" name="menu" value="{{o.menuId}}">
+            <div class="card">
+              <h2 class="card_title">{{o.name}}</h2>
+              <div class="card_image">
+                <img src="{{o.image.url}}" />
+                <div class="price">{{o.price}}</div>
+              </div>
+              <div class="card_content">
+                <div class="card_text">
+                  <p>{{o.desc}}</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </form>
+        {%endfor%}
+      </div>
+      {%endif%} {%if flag is 2%}
+      <div class="wrapper">
+        {%if feastNaki is False%} {%for o in menu%}
+        <form method="POST">
+          {%csrf_token%}
+          <button type="submit" name="menu" value="{{o.menuId}}">
+            <div class="card">
+              <h2 class="card_title">{{o.name}}</h2>
+              <div class="card_image">
+                <img src="{{o.image.url}}" />
+                <div class="price">{{o.price}}</div>
+              </div>
+              <div class="card_content">
+                <div class="card_text">
+                  <p>{{o.desc}}</p>
+                </div>
+              </div>
+            </div>
+          </button>
+        </form>
+        {%endfor%} {%endif%} {%if feastNaki is True%}
+        <form method="POST">
+          {%csrf_token%}
+          <div class="feast">
+            <h3>{{feast.name}}</h3>
+            <h3>Date : {{feast.date}}</h3>
+            <h3>Price : {{feast.price}}</h3>
+            <h3>Menu</h3>
+            <pre>{{feast.desc}}</pre>
+          </div>
+          {%if hoise is False%}
+          <button
+            type="submit"
+            class="fuit"
+            name="feast"
+            value="{{feast.feastId}}"
+          >
+            Buy Coupon
+          </button>
+          {%endif%}
+        </form>
+
+        {%endif%}
+      </div>
+      {%endif%}
+    </div>
+  </body>
+</html>
+{%endblock body%}

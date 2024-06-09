@@ -1,0 +1,100 @@
+{%extends 'hudai.html'%} {%block body%}
+<!DOCTYPE html>
+<style>
+  body {
+    background: #1f1c45;
+  }
+  .con {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  table {
+    font-size: 75%;
+    table-layout: fixed;
+    width: 40vw;
+    background: mintcream;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  th,
+  td {
+    border-width: 1px;
+    padding: 0.5em;
+    position: relative;
+    text-align: left;
+  }
+  th,
+  td {
+    border-radius: 0.25em;
+    border-style: solid;
+  }
+  th {
+    background: floralwhite;
+    border-color: black;
+  }
+  td {
+    border-color: #ddd;
+  }
+  h1 {
+    background: salmon;
+    width: 40vw;
+    border-radius: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    text-align: center;
+  }
+  .k th {
+    background: black;
+    color: white;
+  }
+</style>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="con">
+      <h1>Order History</h1>
+      {%for o in cc%}
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        {%for i in o%}
+        <tr>
+          {%if i.couponMenu%}
+          <th>{{i.couponMenu.menu.name}}</th>
+          <th>{{i.couponMenu.qt}}</th>
+          <th>{{i.couponMenu.menu.price}}</th>
+          {%else%}
+          <th>{{i.couponAdd.addOn.name}}</th>
+          <th>{{i.couponAdd.qt}}</th>
+          <th>{{i.couponAdd.addOn.price}}</th>
+          {%endif%}
+        </tr>
+        <tr class="k">
+          <th></th>
+          <th>Date</th>
+          <th>{{i.date}}</th>
+        </tr>
+        {%endfor%}
+      </table>
+      {%endfor%}
+    </div>
+  </body>
+</html>
+{%endblock body%}

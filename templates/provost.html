@@ -1,0 +1,301 @@
+{%extends 'hudai.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      .con {
+        background: #1f1c45;
+        position: relative;
+      }
+      body {
+        background: #1f1c45;
+      }
+      .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-bottom: 1px solid #db341e60;
+      }
+      .button > * {
+        margin-top: 70px;
+        width: 33.33%;
+        border: none;
+        padding: 10px;
+        color: white;
+        font-size: 18px;
+        background: none;
+      }
+      .len {
+        position: absolute;
+        border-radius: 50%;
+        color: red;
+        width: 30px;
+        height: 30px;
+        left: 22%;
+        padding-top: 5px;
+        background: white;
+        text-align: center;
+      }
+      @media only screen and (max-width: 900px) {
+        .len {
+          left: 27%;
+        }
+      }
+      .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+      }
+      .wrapper h2 {
+        background: #db341e;
+        color: white;
+        width: 100%;
+        font-weight: 500;
+        text-align: center;
+      }
+      .wrap {
+        background: white;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 10px;
+        color: black;
+        width: 450px;
+        margin-bottom: 30px;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      }
+      .wrap h3 {
+        font-weight: 500;
+        background: whitesmoke;
+        padding: 5px;
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+          rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      }
+      .delete {
+        background: #db341e;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        color: white;
+        font-weight: 600;
+        width: 150px;
+      }
+      .manager {
+        margin-top: 100px;
+        background: white;
+        padding: 20px;
+        width: 700px;
+        border-radius: 10px;
+      }
+      .accept {
+        background: #3bc555;
+        padding: 10px;
+        border: none;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        outline: none;
+        cursor: pointer;
+        width: 150px;
+      }
+      table {
+        font-size: 100%;
+        table-layout: fixed;
+        width: 100%;
+      }
+      table {
+        border-collapse: separate;
+        border-spacing: 2px;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        border-width: 1px;
+        padding: 0.5em;
+        position: relative;
+        text-align: center;
+      }
+      th,
+      td {
+        border-radius: 0.25em;
+        border-style: solid;
+      }
+      th {
+        background: #eee;
+        border-color: #bbb;
+      }
+      td {
+        border-color: #ddd;
+      }
+      .employ {
+        margin-top: 10px;
+        width: 700px;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 19px;
+        font-weight: 700;
+        background: #3cae51;
+      }
+      .manager h1 {
+        font-size: 22px;
+        text-align: center;
+        border-bottom: 1px solid rgba(212, 212, 212, 0.84);
+      }
+      .ii {
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: whitesmoke;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 50px;
+        visibility: hidden;
+      }
+      .ii > * {
+        margin-bottom: 20px;
+      }
+      .ii input {
+        padding: 10px;
+        width: 300px;
+        border: 2px solid seagreen;
+        background: white;
+      }
+      .ii button {
+        margin-top: 10px;
+        width: 200px;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 19px;
+        font-weight: 700;
+        background: #3cae51;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="con">
+      <form method="POST" class="button">
+        <h2 class="len">{{len}}</h2>
+        {%csrf_token%} {%if flag is 0%}
+        <button type="submit" name="req" style="background: #db341e">
+          Pending Requests
+        </button>
+        <button type="submit" name="rep">Complaint Box</button>
+        <button type="submit" name="sth">Manager Info</button>
+        {%endif%} {%if flag is 1%}
+        <button type="submit" name="req">Pending Requests</button>
+        <button type="submit" name="rep" style="background: #db341e">
+          Complaint Box
+        </button>
+        <button type="submit" name="sth">Manager Info</button>
+        {%endif%} {%if flag is 2%}
+        <button type="submit" name="req">Pending Requests</button>
+        <button type="submit" name="rep">Complaint Box</button>
+        <button type="submit" name="sth" style="background: #db341e">
+          Manager Info
+        </button>
+        {%endif%}
+      </form>
+      <div class="wrapper">
+        {%if flag is 0%}
+        <h2>Requests</h2>
+        {%for o in stud%}
+        <div class="wrap">
+          <div class="pre">
+            <h3>Name : <span> {{o.name}} </span></h3>
+            <h3>Student Id :{{o.studentId}}</h3>
+            <h3>Session :{{o.session}}</h3>
+            <h3>Department :{{o.department.name}}</h3>
+            <h3>Hall :{{o.hall.name}}</h3>
+            <h3>Email :{{o.email}}</h3>
+          </div>
+          <form method="POST">
+            {%csrf_token%}
+            <button
+              type="submit"
+              value="{{o.studentId}}"
+              name="delete"
+              class="delete"
+            >
+              Decline
+            </button>
+            <button
+              type="submit"
+              value="{{o.studentId}}"
+              name="accept"
+              class="accept"
+            >
+              Accept
+            </button>
+          </form>
+        </div>
+        {%endfor%} {%endif%} {%if flag is 2%} {%if managerAche is 1%}
+        <div class="manager">
+          <h1>Manager Info</h1>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>{{manager.name}}</th>
+            </tr>
+            <tr>
+              <th>Staff ID</th>
+              <th>{{manager.staffId}}</th>
+            </tr>
+            <tr>
+              <th>Mobile</th>
+              <th>{{manager.mobile}}</th>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <th>{{manager.email}}</th>
+            </tr>
+          </table>
+        </div>
+        {%endif%}
+
+        <button class="employ" name="manager">Add New Manager</button>
+        <form method="POST" class="ii">
+          {%csrf_token%}
+          <h3>Enter Info</h3>
+          <input type="text" placeholder="Enter Name" name="name" required />
+          <input type="number" placeholder="Enter Staf Id" name="id" required />
+          <input
+            type="number"
+            placeholder="Enter Phone Number"
+            name="phone"
+            required
+          />
+          <input
+            type="email"
+            placeholder="abc@gmail.com"
+            name="email"
+            required
+          />
+          <button type="submit" name="addManager">Submit</button>
+        </form>
+        {%endif%}
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(".employ").click(function () {
+        $(".ii")[0].style.visibility = "visible";
+      });
+    </script>
+  </body>
+</html>
+{%endblock body%}

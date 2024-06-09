@@ -1,0 +1,117 @@
+{%extends 'hudai.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: #1f1c45;
+        min-height: 100vh;
+      }
+      .ji {
+        margin-top: 100px;
+        margin-bottom: 30px;
+        background: #db341e;
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+        color: white;
+      }
+      .cen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .cen form {
+        display: flex;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: whitesmoke;
+        width: 500px;
+        padding: 20px;
+        box-shadow: #db341e 0px 1px 3px 0px, #db341e 0px 0px 0px 1px;
+      }
+      .cen input {
+        padding: 20px;
+        width: 300px;
+        border: none;
+      }
+      .cen h3 {
+        font-size: 17px;
+
+        text-align: left;
+        width: 65%;
+      }
+      .hui {
+        margin-top: 30px;
+      }
+      .delete {
+        background: #db341e;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        color: white;
+        font-weight: 600;
+        width: 100px;
+      }
+      .cancel {
+        background: #1f1c45;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        color: white;
+        font-weight: 600;
+        width: 100px;
+      }
+      .save {
+        background: #3bc555;
+        padding: 10px;
+        border: none;
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        outline: none;
+        cursor: pointer;
+        width: 100px;
+      }
+      textarea {
+        width: 300px;
+      }
+      .cen img {
+        width: 240px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="cen">
+      <h2 class="ji">Edit Menu</h2>
+      <form method="POST" enctype="multipart/form-data">
+        {%csrf_token%}
+        <h3>Name</h3>
+        <input type="text" name="name" value="{{menu.name}}" />
+        <h3>Price</h3>
+        <input type="text" name="price" value="{{menu.price}}" />
+        <h3>Description</h3>
+        <textarea name="desc" id="" cols="30" rows="7">{{menu.desc}}</textarea>
+        <h3>Current Image</h3>
+        <img src="{{menu.image.url}}" alt="" />
+        <h3>Choose a new one</h3>
+        <input type="file" name="image" />
+        <div class="hui">
+          <button class="cancel" name="cancel" type="submit">Cancel</button>
+          <button class="save" name="save" type="submit">Save</button>
+          <button class="delete" name="delete" type="submit">Delete</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+{%endblock body%}

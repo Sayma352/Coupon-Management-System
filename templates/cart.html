@@ -1,0 +1,512 @@
+{%extends 'hudai.html'%} {%block body%} {%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      .con {
+        width: 70vw;
+        height: 90%;
+        background-color: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0px 10px 20px #1687d933;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom right, #e3f0ff, #fafcff);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .con form {
+        width: 100%;
+      }
+      table {
+        width: 70vw;
+      }
+      tr {
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: white;
+        text-align: center;
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        padding: 20px;
+        margin-bottom: 10px;
+        background: white;
+        box-shadow: 2px 2px 5px rgb(205, 207, 205);
+        text-align: center;
+        font-weight: 200;
+      }
+      thead th {
+        background: black;
+        font-weight: 600;
+        color: white;
+        font-size: 19px;
+        border-collapse: collapse;
+      }
+      .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .wrap input {
+        width: 50px;
+        text-align: center;
+        border: none;
+        padding: 10px;
+        font-weight: 600;
+        font-size: 18px;
+        margin-left: 10px;
+        margin-right: 10px;
+        background: black;
+        border-radius: 8px;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+      .add,
+      .sub {
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        background-color: black;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+      .yu {
+        margin-top: 100px;
+        width: 69.7vw;
+        text-align: center;
+        padding: 5px;
+        background: rgb(6, 139, 121);
+        color: white;
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+      button[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 20px;
+        color: white;
+        font-weight: 600;
+        background: rgb(6, 139, 121);
+      }
+      button[type="submit"]:hover {
+        background: rgb(56, 204, 56);
+      }
+
+      .total {
+        height: 30px;
+        padding: 20px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 30vw;
+        background: rgb(6, 139, 121);
+        color: white;
+      }
+      table img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+      .jji {
+        padding: 0;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2 class="yu">Breakfast</h2>
+    <div class="con">
+      <form method="POST">
+        {%csrf_token%}
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Order Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          {%for o in order%}
+
+          <tr class="ko">
+            <th class="jji">
+              <img src="{{o.menu.image.url}}" />
+            </th>
+            <th><h4 class="title">{{o.menu.name}}</h4></th>
+            <th>
+              <div class="wrap">
+                <button type="button" id="sub" class="sub subB">-</button>
+                <input
+                  type="number"
+                  name="{{o.menu.menuId}}"
+                  class="count"
+                  id="1"
+                  id="{{o.menu.menuId}}"
+                  value="{{o.qt}}"
+                  min="0"
+                  max="100"
+                />
+                <button type="button" id="add" class="add addB">+</button>
+              </div>
+            </th>
+            <th><h4 class="price">{{o.menu.price}}</h4></th>
+          </tr>
+          {%endfor%} {% for o in addo%}
+          <tr class="ko">
+            <th><h4>N/A</h4></th>
+            <th><h4 class="title">{{o.addOn.name}}</h4></th>
+            <th>
+              <div class="wrap">
+                <button type="button" id="sub" class="sub subB">-</button>
+                <input
+                  type="number"
+                  name="{{o.addOn.addOnId}}"
+                  class="count"
+                  id="1"
+                  id="{{o.addOn.addOnId}}"
+                  value="{{o.qt}}"
+                  min="0"
+                  max="100"
+                />
+                <button type="button" id="add" class="add addB">+</button>
+              </div>
+            </th>
+            <th><h4 class="price">{{o.addOn.price}}</h4></th>
+          </tr>
+          {%endfor%}
+        </table>
+        {%if not not order or not not addOn%}
+        <button type="submit" name="break">Get Coupon</button>
+        {%endif%}
+      </form>
+    </div>
+    <div class="total">
+      <h3>Total</h3>
+      <span>=</span>
+      <h3 class="bprice">{{bprice}} BDT</h3>
+    </div>
+    <h2 class="yu">Lunch</h2>
+    <div class="con">
+      <form method="POST">
+        {%csrf_token%}
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Order Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          {%for o in order1%}
+          <tr class="ko">
+            <th class="jji">
+              <img src="{{o.menu.image.url}}" />
+            </th>
+            <th><h4 class="title">{{o.menu.name}}</h4></th>
+            <th>
+              <div class="wrap">
+                <button type="button" id="sub" class="sub subL">-</button>
+                <input
+                  type="number"
+                  name="{{o.menu.menuId}}"
+                  class="count"
+                  id="1"
+                  value="{{o.qt}}"
+                  min="0"
+                  max="100"
+                />
+                <button type="button" id="add" class="add addL">+</button>
+              </div>
+            </th>
+            <th><h4 class="price">{{o.menu.price}}</h4></th>
+          </tr>
+          {%endfor%} {% for o in addo1%}
+          <tr class="ko">
+            <th><h4>N/A</h4></th>
+            <th><h4 class="title">{{o.addOn.name}}</h4></th>
+            <th>
+              <div class="wrap">
+                <button type="button" id="sub" class="sub subL">-</button>
+                <input
+                  type="number"
+                  name="{{o.addOn.addOnId}}"
+                  class="count"
+                  id="1"
+                  value="{{o.qt}}"
+                  min="0"
+                  max="100"
+                />
+                <button type="button" id="add" class="add addL">+</button>
+              </div>
+            </th>
+            <th><h4 class="price">{{o.addOn.price}}</h4></th>
+          </tr>
+          {%endfor%}
+        </table>
+        {%if order1 or addO1%}
+        <button type="submit" name="lunch">Get Coupon</button>
+        {%endif%}
+      </form>
+    </div>
+    <div class="total">
+      <h3>Total</h3>
+      <span>=</span>
+      <h3 class="lprice">{{lprice}} BDT</h3>
+    </div>
+    <h2 class="yu">Dinner</h2>
+    <div class="con">
+      <form method="POST">
+        {%csrf_token%}
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Order Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          {%for o in order2%}
+          <tr class="ko">
+            <th class="jji">
+              <img src="{{o.menu.image.url}}" />
+            </th>
+            <th><h4 class="title">{{o.menu.name}}</h4></th>
+            <th>
+              <div class="wrap">
+                <button type="button" id="sub" class="sub subD">-</button>
+                <input
+                  type="number"
+                  name="{{o.menu.menuId}}"
+                  class="count"
+                  id="1"
+                  value="{{o.qt}}"
+                  min="0"
+                  max="100"
+                />
+                <button type="button" id="add" class="add addD">+</button>
+              </div>
+            </th>
+            <th><h4 class="price">{{o.menu.price}}</h4></th>
+          </tr>
+          {%endfor%} {% for o in addo2%}
+          <tr class="ko">
+            <th><h4>N/A</h4></th>
+            <th><h4 class="title">{{o.addOn.name}}</h4></th>
+            <th>
+              <div class="wrap">
+                <button type="button" id="sub" class="sub subD">-</button>
+                <input
+                  type="number"
+                  name="{{o.addOn.addOnId}}"
+                  class="count"
+                  id="1"
+                  value="{{o.qt}}"
+                  min="0"
+                  max="100"
+                />
+                <button type="button" id="add" class="add addD">+</button>
+              </div>
+            </th>
+            <th><h4 class="price">{{o.addOn.price}}</h4></th>
+          </tr>
+          {%endfor%}
+        </table>
+        {%if order2 or addO2%}
+        <button type="submit" name="dinner">Get Coupon</button>
+        {%endif%}
+      </form>
+    </div>
+    <div class="total">
+      <h3>Total</h3>
+      <span>=</span>
+      <h3 class="dprice">{{dprice}} BDT</h3>
+    </div>
+    <script type="text/javascript">
+      $(".addB").click(function () {
+        var th = $(this).closest(".wrap").find(".count");
+        th.val(+th.val() + 1);
+        $(".subB").attr("disabled", false);
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".bprice")[0].innerText;
+        total = parseInt(total);
+        total += price;
+        var ss = total + " BDT";
+        $(".bprice")[0].innerText = ss;
+      });
+      $(".subB").click(function () {
+        var th = $(this).closest(".wrap").find(".count");
+        if (th.val() > 0) {
+          th.val(th.val() - 1);
+        }
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".bprice")[0].innerText;
+        total = parseInt(total);
+        console.log(th.val());
+        if (th.val() >= 0) {
+          total -= price;
+          if (th.val() == 0) {
+            $(this).closest(".wrap").find(".subB").attr("disabled", true);
+          }
+        }
+        var ss = total + " BDT";
+        $(".bprice")[0].innerText = ss;
+      });
+      $(".addL").click(function () {
+        $(".subL").attr("disabled", false);
+        var th = $(this).closest(".wrap").find(".count");
+        th.val(+th.val() + 1);
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        console.log(price);
+        var total = $(".lprice")[0].innerText;
+        total = parseInt(total);
+        total += price;
+        var ss = total + " BDT";
+        $(".lprice")[0].innerText = ss;
+      });
+      $(".subL").click(function () {
+        var th = $(this).closest(".wrap").find(".count");
+        if (th.val() > 0) th.val(th.val() - 1);
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".lprice")[0].innerText;
+        total = parseInt(total);
+        if (th.val() >= 0) {
+          total -= price;
+          if (th.val() == 0) {
+            $(this).closest(".wrap").find(".subL").attr("disabled", true);
+          }
+        }
+        var ss = total + " BDT";
+        $(".lprice")[0].innerText = ss;
+      });
+      $(".addD").click(function () {
+        $(".subD").attr("disabled", false);
+        var th = $(this).closest(".wrap").find(".count");
+        th.val(+th.val() + 1);
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".dprice")[0].innerText;
+        total = parseInt(total);
+        total += price;
+        var ss = total + " BDT";
+        $(".dprice")[0].innerText = ss;
+      });
+      $(".subD").click(function () {
+        console.log("porse");
+        var th = $(this).closest(".wrap").find(".count");
+        if (th.val() > 0) th.val(th.val() - 1);
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".dprice")[0].innerText;
+        total = parseInt(total);
+        if (th.val() >= 0) {
+          total -= price;
+          if (th.val() == 0) {
+            $(".subD").attr("disabled", false);
+          }
+        }
+        var ss = total + " BDT";
+        $(".dprice")[0].innerText = ss;
+      });
+    </script>
+    <!-- <script type="text/javascript">
+      $(".addB").click(function () {
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".bprice")[0].innerText;
+        total = parseInt(total);
+        total += price;
+        var ss = total + " BDT";
+        $(".bprice")[0].innerText = ss;
+      });
+      $(".subB").click(function () {
+        var th = $(this).closest(".ko").find(".count");
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".bprice")[0].innerText;
+        total = parseInt(total);
+        console.log(th.val());
+        if (th.val() > 0) {
+          total -= price;
+        }
+        var ss = total + " BDT";
+        $(".bprice")[0].innerText = ss;
+      });
+      $(".addL").click(function () {
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        console.log(price);
+        var total = $(".lprice")[0].innerText;
+        total = parseInt(total);
+        total += price;
+        var ss = total + " BDT";
+        $(".lprice")[0].innerText = ss;
+      });
+      $(".subL").click(function () {
+        var th = $(this).closest(".ko").find(".count");
+
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".lprice")[0].innerText;
+        total = parseInt(total);
+        if (th.val() > 0) {
+          total -= price;
+        }
+        var ss = total + " BDT";
+        $(".lprice")[0].innerText = ss;
+      });
+      $(".addD").click(function () {
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".dprice")[0].innerText;
+        total = parseInt(total);
+        total += price;
+        var ss = total + " BDT";
+        $(".dprice")[0].innerText = ss;
+      });
+      $(".subD").click(function () {
+        var price = $(this).closest(".ko").find(".price")[0].innerText;
+        price = parseInt(price);
+        var total = $(".dprice")[0].innerText;
+        total = parseInt(total);
+        if (th.val() > 0) {
+          total -= price;
+        }
+        var ss = total + " BDT";
+        $(".dprice")[0].innerText = aa;
+      });
+    </script> -->
+  </body>
+</html>
+{%endblock body%}

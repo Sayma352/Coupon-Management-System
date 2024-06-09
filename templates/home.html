@@ -1,0 +1,96 @@
+{%extends 'hudai.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        font-family: "Courier New", Courier, monospace;
+        box-sizing: border-box;
+      }
+      body {
+        background: #1f1c45;
+      }
+      .main {
+        height: 100vh;
+        padding: 10px;
+        width: 100%;
+        background-image: linear-gradient(to right, #1f1c45 67%, #db341e 33%);
+      }
+      .header h2 {
+        font-size: 4rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+      .button button {
+        background: #db341e;
+        padding: 20px;
+        width: 200px;
+        color: white;
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-size: 18px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+      .main img {
+        position: absolute;
+        width: 34%;
+        top: 30%;
+        right: 10%;
+      }
+      .button button a {
+        color: white;
+        text-decoration: none;
+      }
+      .button button:hover {
+        background: black;
+        color: white;
+      }
+      .header {
+        margin-top: 15%;
+        margin-left: 10%;
+        color: white;
+        max-width: 700px;
+      }
+      @media only screen and (max-width: 900px) {
+        .main {
+          background: #1f1c45;
+        }
+        .main img {
+          display: none;
+        }
+        .content {
+          width: 98%;
+        }
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="main">
+      <div class="header">
+        <h2>Buy your coupons now!</h2>
+        <p>
+          Welcome to Coupon Management System of Jahangirnagar university.This
+          system offers easy way to order menu,pay bills for the menu and get
+          corresponding physical coupon to acutally recieve the order.
+        </p>
+
+        <div class="button">
+          <button>
+            <a href="/menu">Explore Menu</a>
+          </button>
+          <button>Read More</button>
+        </div>
+      </div>
+      {%load static%}
+      <img src="{%static '../static/iu.webp'%}" alt="" />
+    </div>
+  </body>
+</html>
+{%endblock body%}

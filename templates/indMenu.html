@@ -1,0 +1,199 @@
+{%extends 'hudai.html'%} {%block body%} {%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: #1f1c45;
+      }
+      .con {
+        min-height: 100vh;
+        padding: 20px;
+        background: #1f1c45;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .imagery {
+        cursor: pointer;
+        max-height: 250px;
+        position: relative;
+      }
+      .form {
+        margin-top: 100px;
+        background: white;
+        width: 600px;
+        border-radius: 10px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+      .wrap input {
+        width: 80px;
+        text-align: center;
+        border: none;
+        padding: 10px;
+        font-weight: 600;
+        font-size: 18px;
+        background: #db341e;
+        border-radius: 8px;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+      .add,
+      .sub {
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        background-color: #db341e;
+        border: none;
+        outline: none;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+      img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+      }
+      .gui {
+        border-bottom: 1px solid #db341e58;
+      }
+      .some {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .wrapper {
+        padding: 15px;
+      }
+      .ok {
+        text-align: center;
+        font-weight: 500;
+      }
+      .some > * {
+        width: 33.33%;
+        text-align: end;
+        background: whitesmoke;
+        height: 60px;
+        padding: 10px;
+      }
+      .hui {
+        font-weight: 500;
+        text-align: start;
+      }
+      .cart {
+        padding: 10px;
+        width: 300px;
+        border: none;
+        background: #db341e;
+        color: white;
+        font-weight: 600;
+        font-size: 19px;
+        margin-left: 24%;
+        margin-bottom: 40px;
+      }
+      .notun {
+        background: rgba(92, 84, 84, 0.757);
+        position: fixed;
+        top: 0;
+        min-height: 100vh;
+        min-width: 99vw;
+        z-index: 5;
+      }
+      #alert2 {
+        background: rgb(52, 125, 68);
+        position: absolute;
+        z-index: 400;
+        width: 400px;
+        padding: 40px;
+        top: 35%;
+        left: 40%;
+        color: white;
+        border-radius: 10px;
+        font-family: "Courier New", Courier, monospace;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      #alert2 button {
+        padding: 10px;
+        width: 180px;
+        border-radius: 10px;
+        border: none;
+        background: white;
+        color: #39a94c;
+        font-weight: 800;
+        margin-left: 20%;
+        outline: none;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'hudai' in msg.tags%}
+    <div class="notun"></div>
+    <div
+      id="alert2"
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      <p>{{msg}}</p>
+      <button onclick="window.location.href='/menu'">Close</button>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="con">
+      <div class="form">
+        <form method="POST">
+          {%csrf_token%}
+          <div class="imagery">
+            <img src="{{ui.image.url}}" alt="" />
+          </div>
+          <div class="wrapper">
+            <h3 class="gui">{{ui.name}}</h3>
+            <h2 class="ok">Select Add-ons</h2>
+            {%for o in add%}
+            <div class="some">
+              <h4 class="hui">{{o.name}}</h4>
+              <div class="wrap">
+                <button type="button" id="sub" class="sub">-</button>
+                <input type="text" name="{{o.addOnId}}" class="count" id="1"
+                value="0" min="10 max="10" />
+                <button type="button" id="add" class="add">+</button>
+              </div>
+              <h4>{{o.price}} BDT</h4>
+            </div>
+            {%endfor%}
+          </div>
+          <button class="cart" type="submit" name="cart">Add to Order</button>
+        </form>
+        <button class="cart" onclick="history.back()">Cancel</button>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(".add").click(function () {
+        var th = $(this).closest(".wrap").find(".count");
+        th.val(+th.val() + 1);
+      });
+      $(".sub").click(function () {
+        var th = $(this).closest(".wrap").find(".count");
+        if (th.val() > 0) th.val(+th.val() - 1);
+      });
+    </script>
+  </body>
+</html>
+{%endblock body%}

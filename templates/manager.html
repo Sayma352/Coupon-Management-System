@@ -1,0 +1,494 @@
+{%extends 'hudai.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: #1f1c45;
+        min-height: 100vh;
+      }
+
+      .con {
+        margin-top: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .bui {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        background: #1f1c45;
+        border-bottom: 1px solid #db341e60;
+      }
+      .bui > * {
+        width: 33.33%;
+        padding: 10px;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        background: none;
+        color: white;
+      }
+      .menu form {
+        display: flex;
+        border-radius: 7px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        justify-content: center;
+        align-items: center;
+        background: whitesmoke;
+        padding: 20px;
+        width: 500px;
+        margin-top: 50px;
+        flex-direction: column;
+      }
+      select {
+        width: 300px;
+        padding: 20px;
+        border: 2px solid black;
+        margin-bottom: 20px;
+      }
+      .menu input {
+        padding: 20px;
+        width: 300px;
+        border: none;
+        outline: none;
+        margin-bottom: 20px;
+      }
+      .add {
+        width: 200px;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 10px;
+        border: none;
+        color: white;
+        background: #db341e;
+      }
+      .addons form {
+        display: flex;
+        border-radius: 7px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        justify-content: center;
+        align-items: center;
+        background: whitesmoke;
+        padding: 20px;
+        width: 500px;
+        margin-top: 50px;
+        flex-direction: column;
+      }
+      .addons input {
+        padding: 20px;
+        width: 300px;
+        border: none;
+        outline: none;
+        margin-bottom: 20px;
+      }
+      .kure {
+        width: 80vw;
+        background: #db341e;
+        color: white;
+        padding: 4px;
+        text-align: center;
+        margin-bottom: 0;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .kire {
+        width: 80vw;
+        background: darkcyan;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .kire > * {
+        position: relative;
+        height: 500px;
+        background: rgb(209, 107, 107);
+        color: white;
+        border: 2px dashed white;
+        padding: 20px;
+        margin-top: 20px;
+        min-width: 400px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+      }
+      .feast h3 {
+        text-align: center;
+      }
+
+      .hudai form {
+        display: flex;
+        border-radius: 7px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        justify-content: center;
+        align-items: center;
+        background: whitesmoke;
+        padding: 20px;
+        width: 500px;
+        margin-top: 50px;
+        flex-direction: column;
+      }
+      .hudai input {
+        padding: 20px;
+        width: 300px;
+        border: none;
+        outline: none;
+        margin-bottom: 20px;
+      }
+      .hudai span {
+        text-align: start;
+        width: 61%;
+      }
+      textarea {
+        width: 300px;
+        margin-bottom: 20px;
+      }
+      .del {
+        position: absolute;
+        bottom: 5%;
+        margin-left: 130px;
+        background: #db341e;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        color: white;
+        font-weight: 600;
+        width: 100px;
+      }
+      .sale-form {
+        background: whitesmoke;
+        margin-top: 100px;
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 400px;
+        height: auto;
+        border-radius: 10px;
+        border: 10px solid #db341e;
+      }
+      .sale-form input {
+        width: 300px;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: none;
+      }
+      .sale-form h4 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0;
+        background: #db341e;
+        padding: 5px;
+        color: white;
+      }
+      .sale-form button {
+        background: #db341e;
+        padding: 10px;
+        width: 200px;
+        font-size: 19px;
+        border: none;
+        font-weight: 600;
+        color: white;
+      }
+      .bar {
+        background: white;
+        margin: 50px;
+        padding: 20px;
+        text-align: center;
+        min-width: 40vw;
+        min-height: 50vh;
+        border-radius: 10px;
+      }
+      .bar h3 {
+        background: #db341e;
+        color: white;
+        padding: 5px;
+        border-radius: 20px;
+      }
+      canvas {
+        background: whitesmoke;
+        border-radius: 10px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+          rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        color: white;
+      }
+      .container {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        margin-top: 0;
+      }
+      .selector {
+        position: relative;
+        width: 300px;
+        background-color: whitesmoke;
+        height: 40px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+      }
+      .selecotr-item {
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .selector-item_radio {
+        appearance: none;
+        display: none;
+      }
+      .selector-item_label {
+        width: 100%;
+        margin-top: 5px;
+        padding: 10px;
+        height: 40px;
+        text-align: center;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition-duration: 0.5s;
+        transition-property: transform, color, box-shadow;
+        transform: none;
+      }
+      .selector-item_radio:checked + .selector-item_label {
+        background-color: #db341e;
+        color: whitesmoke;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.5);
+        transform: translateY(-2px);
+        font-weight: 700;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  </head>
+  <body>
+    <div class="con">
+      <form method="POST" class="bui">
+        {%csrf_token%} {%if flag is 0%}
+        <button type="submit" name="req" style="background: #db341e">
+          Menu
+        </button>
+        <button type="submit" name="rep">Feast</button>
+        <button type="submit" name="sth">Sales</button>
+        {%endif%} {%if flag is 1%}
+        <button type="submit" name="req">Menu</button>
+        <button type="submit" name="rep" style="background: #db341e">
+          Feast
+        </button>
+        <button type="submit" name="sth">Sales</button>
+        {%endif%} {%if flag is 2%}
+        <button type="submit" name="req">Menu</button>
+        <button type="submit" name="rep">Feast</button>
+        <button type="submit" name="sth" style="background: #db341e">
+          Sales
+        </button>
+        {%endif%}
+      </form>
+      {%if flag is 0%}
+      <div class="menu">
+        <form method="POST" enctype="multipart/form-data">
+          {%csrf_token%}
+          <h2>Add Menu</h2>
+          <input type="number" name="menuId" placeholder="Enter Menu Id" />
+          <select name="menuType" id="" required>
+            <option selected disabled>Select Shift</option>
+            {%for o in shift%}
+            <option value="{{o.name}}">{{o.name}}</option>
+            {%endfor%}
+          </select>
+          <input type="text" name="name" placeholder="Enter Menu Name" />
+          <input type="number" name="price" placeholder="Enter Price" />
+          <input type="text" name="desc" placeholder="Enter Description" />
+          <h3>Choose an Image</h3>
+          <input type="file" name="image" />
+          <button type="submit" name="add" class="add">ADD</button>
+        </form>
+      </div>
+      <div class="addons">
+        <form method="POST">
+          <h2>Add Add-Ons</h2>
+          {%csrf_token%}
+          <input type="number" name="id" placeholder="Enter AddOn Id" />
+          <select name="shift" id="" required>
+            <option selected disabled>Select Shift</option>
+            {%for o in shift%}
+            <option value="{{o.name}}">{{o.name}}</option>
+            {%endfor%}
+          </select>
+          <input type="text" placeholder="Enter Name" name="name" />
+          <input type="number" placeholder="Enter Price" name="price" />
+          <button type="submit" class="add" name="addon">Add</button>
+        </form>
+      </div>
+      {%endif%} {%if flag is 1%}
+      <h2 class="kure">Feasts</h2>
+      <div class="kire">
+        {%for o in feast%}
+        <form method="POST">
+          {%csrf_token%}
+          <div class="feast">
+            <h3>{{o.name}}</h3>
+            <h3>Date : {{o.date}}</h3>
+            <h3>Price : {{o.price}}</h3>
+            <h3>Menu</h3>
+            <pre>{{o.desc}}</pre>
+          </div>
+          <button
+            type="submit"
+            class="del"
+            name="delFeast"
+            value="{{o.feastId}}"
+          >
+            Delete
+          </button>
+        </form>
+        {%endfor%}
+      </div>
+      <div class="hudai">
+        <form method="POST">
+          <h2>Add Feast</h2>
+          {%csrf_token%}
+          <span>Enter Feast ID</span>
+          <input type="number" name="id" placeholder="Enter ID" />
+          <span>Select Date</span>
+          <input type="date" name="date" />
+          <span>Enter Name</span>
+          <input type="text" name="name" placeholder="Enter Name" />
+          <span>Enter Price in BDT</span>
+          <input type="number" name="price" placeholder="Enter Price" />
+          <span>Add Menu</span>
+          <textarea name="desc" id="" cols="30" rows="10"> </textarea>
+          <button class="add" name="feast" type="submit">Add</button>
+        </form>
+      </div>
+      {%endif%} {%if flag is 2%}
+      <form method="POST" class="sale-form">
+        {%csrf_token%}
+        <h2>Provide Info</h2>
+        <div class="container">
+          <div class="selector">
+            <div class="selecotr-item">
+              <input
+                type="radio"
+                id="radio1"
+                name="type"
+                value="1"
+                class="selector-item_radio"
+                checked
+              />
+              <label for="radio1" class="selector-item_label">Daily</label>
+            </div>
+            <div class="selecotr-item">
+              <input
+                type="radio"
+                id="radio2"
+                name="type"
+                value="2"
+                class="selector-item_radio"
+              />
+              <label for="radio2" class="selector-item_label">Monthly</label>
+            </div>
+            <div class="selecotr-item">
+              <input
+                type="radio"
+                id="radio3"
+                name="type"
+                value="3"
+                class="selector-item_radio"
+              />
+              <label for="radio3" class="selector-item_label">Yearly</label>
+            </div>
+          </div>
+        </div>
+        <div class="daily" style="display: block">
+          <h4>Pick a Date</h4>
+          <input type="date" name="date" />
+        </div>
+        <div class="monthly" style="display: none">
+          <h4>Pick a Month</h4>
+          <input type="month" name="month" min="2023-01" max="2034-12" />
+        </div>
+        <div class="yearly" style="display: none">
+          <h4>Pick a Year</h4>
+          <input type="number" min="2023" max="2034" name="year" />
+        </div>
+        <select name="shift" id="">
+          <option selected disabled>Select shift</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+        </select>
+        <button type="submit" class="sales" name="sales">Submit</button>
+      </form>
+      <div class="bar">
+        <h3>{{date}}</h3>
+        <h2>{{shift}}</h2>
+        <canvas id="chart"></canvas>
+      </div>
+      {%endif%}
+    </div>
+  </body>
+  <script type="text/javascript">
+    $("#radio1").click(function () {
+      console.log("clicked");
+      $(".yearly").removeAttr("style").hide();
+      $(".daily").show();
+      $(".monthly").removeAttr("style").hide();
+    });
+    $("#radio2").click(function () {
+      console.log("clicked");
+      $(".daily").removeAttr("style").hide();
+      $(".monthly").show();
+      $(".yearly").removeAttr("style").hide();
+    });
+    $("#radio3").click(function () {
+      console.log("clicked");
+      $(".daily").removeAttr("style").hide();
+      $(".yearly").show();
+      $(".monthly").removeAttr("style").hide();
+    });
+  </script>
+  <script type="text/javascript">
+    const ctx = document.getElementById("chart");
+    var ee = {{labels|safe}};
+    var ff = {{data|safe}};
+    var gg = {{background|safe}};
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ee,
+        datasets: [
+          {
+            label: "Unit Of Items",
+            data: ff,
+            backgroundColor: gg,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+  </script>
+</html>
+{%endblock body%}
